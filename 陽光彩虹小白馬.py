@@ -63,15 +63,19 @@ def parse_route_and_packages(route: List[List[str]], packages: List[Dict]) -> Tu
     """
     start, end = None, None
     package_locations = {}
+
+    # Loop to read each cell in route matrix
     for i, row in enumerate(route):
         for j, cell in enumerate(row):
+            # Identify the start, end and package cell by the letter or first letter of the cell
             if cell == 'S':
                 start = (i, j)
             elif cell == 'E':
                 end = (i, j)
             elif cell.startswith('P'):
-                package_locations[cell] = (i, j)
+                package_locations[cell] = (i, j)    # Storing based on the id of the package
 
+    # Returning error if did not detect the the start and end points
     if not start or not end:
         raise ValueError("Route must contain start (S) and end (E) points.")
 
@@ -247,10 +251,12 @@ def execute_delivery(packages: List[Dict], route: List[List[str]]) -> None:
     plt.show()
 
 # Main
-# Ensure the execution of execute_delivery function only when the script is run directly, rather than when it is imported as a module into another script.
-# Isolate the main logic of the program from reusable components.
+''' 
+Ensure the execution of execute_delivery function only when the script is run directly, rather than when it is imported as a module into another script.
+It basically isolate the main logic of the program from reusable components.
+'''
 if __name__ == "__main__":
-    # List of Packages
+    # List of Packages in format of dictionary in a list
     packages = [
         {"id": "PKG001", "urgency": 3, "weight": 10, "description": "An Elephant"},
         {"id": "PKG002", "urgency": 5, "weight": 2, "description": "A Tiny Elephant"},
@@ -259,7 +265,7 @@ if __name__ == "__main__":
         {"id": "PKG005", "urgency": 2, "weight": 6, "description": "Chinese Propaganda Books"},
     ]
 
-    # 2D Map
+    # 2D Map of route in format of matrix
     route = [
         ['S', '.', '.', 'X', 'PKG001', '.', '.', '.', '.', '.'],
         ['.', 'X', '.', 'X', '.', 'X', '.', '.', '.', '.'],
