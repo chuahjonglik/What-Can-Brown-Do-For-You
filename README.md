@@ -49,11 +49,11 @@ This program simulates a delivery scenario where a delivery person picks up pack
 This approach efficiently handles multiple deliveries with varying priorities, provides clear insights via animations, and simulates realistic timing constraints for package handling and movement.
 
 ## Code Operation
-#### Additional Packages Used:
+### Additional Packages Used:
 - matplotlib
 - numpy
 
-#### Brief Execution Flow:
+### Brief Execution Flow:
 1. **Parsing Inputs**:
    - The package list and map are parsed to extract information like the starting point, end point, and package locations.
 2. **Delivery Simulation**:
@@ -62,7 +62,7 @@ This approach efficiently handles multiple deliveries with varying priorities, p
 3. **Animation and Visualization**:
    - Every movement, package pickup, and delivery step is dynamically visualized, providing real-time feedback.
 
-#### Detailed Execution Flow:
+### Detailed Execution Flow:
 1. **The Very First Thing:**
    - The list of packages are stored in list with dictionary. The route is stored in nested list.
    - `execute_delivery(packages, route)` will be execute to start the simulation.
