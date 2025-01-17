@@ -21,7 +21,7 @@ def MsgBox():
     else :
         mb.showwarning('Government', 'Social credits -1')
 
-
+# Function to calculate Manhattan distance between two points (distance between two points in a grid-like path)
 def heuristic(a: Tuple[int, int], b: Tuple[int, int]) -> int:
     """
     Heuristic function for A* algorithm: Manhattan distance between two points.
@@ -35,6 +35,7 @@ def heuristic(a: Tuple[int, int], b: Tuple[int, int]) -> int:
     """
     return abs(a[0] - b[0]) + abs(a[1] - b[1])
 
+# Function to parse and sort the package list based on urgency (ascending)
 def parse_packages(package_list: List[Dict]) -> List[Dict]:
     """
     Parse and sort the package list based on urgency (ascending).
