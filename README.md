@@ -3,8 +3,9 @@ Smart Delivery Solution: Route Optimization and Package Handling
 
 ## Project Details
 
-| **Author**                        | Chuah Jong Lik  |
+| **Title**                         | Content         |
 | ---                               | ---             |
+| **Author**                        | Chuah Jong Lik  |
 | **Cumulative Development Time**   | About 8 hours   |
 | **Progamming language**:          | Python          |
 
@@ -74,4 +75,5 @@ This approach efficiently handles multiple deliveries with varying priorities, p
 - https://www.w3schools.com/
 - https://www.markdownguide.org/
 - https://docs.python.org/3/library/
+- https://www.learnbyexample.org/
 - https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/organizing-information-with-tables
