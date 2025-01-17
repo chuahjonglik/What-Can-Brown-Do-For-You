@@ -49,6 +49,7 @@ def parse_packages(package_list: List[Dict]) -> List[Dict]:
     """
     return sorted(package_list, key=lambda x: (x['urgency'], -x['weight']))
 
+# Function to parse the route to identify start, end points, and package locations
 def parse_route_and_packages(route: List[List[str]], packages: List[Dict]) -> Tuple[Tuple[int, int], Tuple[int, int], Dict[str, Tuple[int, int]]]:
     """
     Parse the route to identify start, end points, and package locations.
@@ -76,6 +77,7 @@ def parse_route_and_packages(route: List[List[str]], packages: List[Dict]) -> Tu
 
     return start, end, package_locations
 
+# Function to find the shortest path between start and end.
 def a_star(route: List[List[str]], start: Tuple[int, int], end: Tuple[int, int]) -> List[Tuple[int, int]]:
     """
     Implement A* algorithm to find the shortest path between start and end.
@@ -107,9 +109,6 @@ def a_star(route: List[List[str]], start: Tuple[int, int], end: Tuple[int, int])
                 neighbors.append((r, c))
         return neighbors
 
-    # def heuristic(a, b):
-    #     return abs(a[0] - b[0]) + abs(a[1] - b[1])
-
     while open_set:
         _, current = heapq.heappop(open_set)
 
@@ -132,6 +131,7 @@ def a_star(route: List[List[str]], start: Tuple[int, int], end: Tuple[int, int])
 
     raise ValueError("No path found from start to end.")
 
+# Function to visualize the path
 def visualize_with_animation(route: List[List[str]], path: List[Tuple[int, int]], ax, truck_contents=None, total_weight=0, running_time=0):
     """
     Visualize the route and path dynamically using Matplotlib.
@@ -171,6 +171,7 @@ def visualize_with_animation(route: List[List[str]], path: List[Tuple[int, int]]
             ax.set_title(f"Running time: {running_time:.1f}s")
         plt.pause(0.1)
 
+# Function to simulate package delivery based on urgency, package weight limits, and shortest route
 def execute_delivery(packages: List[Dict], route: List[List[str]]) -> None:
     """
     Simulate package delivery based on urgency, package weight limits, and shortest route.
@@ -236,7 +237,7 @@ def execute_delivery(packages: List[Dict], route: List[List[str]]) -> None:
         remaining_capacity = truck_capacity
         truck_contents.clear()
 
-    # Cool ending animation
+    # Ending animation
     for _ in range(3):
         print("Packages delivered! All done!")
         time.sleep(0.5)
@@ -245,7 +246,11 @@ def execute_delivery(packages: List[Dict], route: List[List[str]]) -> None:
     plt.ioff()
     plt.show()
 
+# Main
+# Ensure the execution of execute_delivery function only when the script is run directly, rather than when it is imported as a module into another script.
+# Isolate the main logic of the program from reusable components.
 if __name__ == "__main__":
+    # List of Packages
     packages = [
         {"id": "PKG001", "urgency": 3, "weight": 10, "description": "An Elephant"},
         {"id": "PKG002", "urgency": 5, "weight": 2, "description": "A Tiny Elephant"},
@@ -254,6 +259,7 @@ if __name__ == "__main__":
         {"id": "PKG005", "urgency": 2, "weight": 6, "description": "Chinese Propaganda Books"},
     ]
 
+    # 2D Map
     route = [
         ['S', '.', '.', 'X', 'PKG001', '.', '.', '.', '.', '.'],
         ['.', 'X', '.', 'X', '.', 'X', '.', '.', '.', '.'],
@@ -266,4 +272,6 @@ if __name__ == "__main__":
         ['.', 'E', '.', '.', '.', 'X', 'X', 'X', 'PKG003', 'X'],
         ['.', '.', 'PKG004', '.', '.', '.', '.', '.', '.', '.'],
     ]
+
+    # Excute the simulation
     execute_delivery(packages, route)

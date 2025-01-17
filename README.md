@@ -5,6 +5,12 @@ Smart Delivery Solution: Route Optimization and Package Handling
 
 This program simulates a delivery scenario where a delivery person picks up packages from various points on a 2D map and delivers them to a warehouse based on their urgency and weight, while adhering to weight limits. The delivery is visualized with dynamic animations, showing the paths taken and the state of the delivery truck at each step.
 
+## Project Details
+
+**Cumulative Development Time** | About 8 hours
+
+**Progamming language**: | Python
+
 #### Key Features:
 
 1. **Package Handling**:
@@ -33,15 +39,6 @@ This program simulates a delivery scenario where a delivery person picks up pack
 6. **Cool Ending Animation**:
    - A brief celebratory message and animation are shown once all packages are successfully delivered.
 
-#### Execution Flow:
-1. **Parsing Inputs**:
-   - The package list and map are parsed to extract information like the starting point, end point, and package locations.
-2. **Delivery Simulation**:
-   - The delivery person starts at the designated starting point and moves sequentially to pick up packages based on the sorted list.
-   - After reaching the capacity limit or exhausting the sorted package list, the delivery person travels to the warehouse to unload.
-3. **Animation and Visualization**:
-   - Every movement, package pickup, and delivery step is dynamically visualized, providing real-time feedback.
-
 #### Example Output:
 - Animated visualization showing the movement through the grid.
 - Console logs tracking pickups, deliveries, and remaining capacity.
@@ -50,6 +47,23 @@ This program simulates a delivery scenario where a delivery person picks up pack
 This approach efficiently handles multiple deliveries with varying priorities, provides clear insights via animations, and simulates realistic timing constraints for package handling and movement.
 
 ## Code Operation
-**Additional Packages Used:**
+#### Additional Packages Used:
 - matplotlib
 - numpy
+
+#### Brief Execution Flow:
+1. **Parsing Inputs**:
+   - The package list and map are parsed to extract information like the starting point, end point, and package locations.
+2. **Delivery Simulation**:
+   - The delivery person starts at the designated starting point and moves sequentially to pick up packages based on the sorted list.
+   - After reaching the capacity limit or exhausting the sorted package list, the delivery person travels to the warehouse to unload.
+3. **Animation and Visualization**:
+   - Every movement, package pickup, and delivery step is dynamically visualized, providing real-time feedback.
+
+#### Detailed Execution Flow:
+1. **The Very First Thing:**
+   - The 
+
+
+
+
