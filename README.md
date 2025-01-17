@@ -1,16 +1,16 @@
 # What-Can-Brown-Do-For-You
 Smart Delivery Solution: Route Optimization and Package Handling
 
-## Overview of the Code
-
-This program simulates a delivery scenario where a delivery person picks up packages from various points on a 2D map and delivers them to a warehouse based on their urgency and weight, while adhering to weight limits. The delivery is visualized with dynamic animations, showing the paths taken and the state of the delivery truck at each step.
-
 ## Project Details
 
-| Parameter                         | Value           |
+| **Author**                        | Chuah Jong Lik  |
 | ---                               | ---             |
 | **Cumulative Development Time**   | About 8 hours   |
 | **Progamming language**:          | Python          |
+
+## Overview of the Code
+
+This program simulates a delivery scenario where a delivery person picks up packages from various points on a 2D map and delivers them to a warehouse based on their urgency and weight, while adhering to weight limits. The delivery is visualized with dynamic animations, showing the paths taken and the state of the delivery truck at each step.
 
 #### Key Features:
 
@@ -63,8 +63,15 @@ This approach efficiently handles multiple deliveries with varying priorities, p
 
 #### Detailed Execution Flow:
 1. **The Very First Thing:**
-   - The 
+   - The list of packages are stored in list with dictionary. The route is stored in nested list.
+   - `execute_delivery(packages, route)` will be execute to start the simulation.
 
 
 
 
+## References
+- Our Favourite Assistant, ChatGPT ✨
+- https://www.w3schools.com/
+- https://www.markdownguide.org/
+- https://docs.python.org/3/library/
+- https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/organizing-information-with-tables
