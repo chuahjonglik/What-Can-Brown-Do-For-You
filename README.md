@@ -68,8 +68,10 @@ This approach efficiently handles multiple deliveries with varying priorities, p
    - `execute_delivery(packages, route)` function is called to start the simulation.
 
 2. **Identifying Start, End Points, and Package Locations**
-   - Now inside `execute_delivery(packages, route)` function, 
+   - Now inside `execute_delivery(packages, route)` function,
+      
       `start, end, package_locations = parse_route_and_packages(route, packages)`: Calling `parse_route_and_packages()` function to get coordinates of the start, end points, and each package locations.
+      
    - Inside `parse_route_and_packages()` function, 
       ```python
       for i, row in enumerate(route):
@@ -85,6 +87,9 @@ This approach efficiently handles multiple deliveries with varying priorities, p
       Looping is done to identify the start, end and all package cells by matching the first letter of the cell.
 
       Then, once the start, end and all package cells are identified, it will be stored and returned. If the start and end points failed to be located, it will return an error.
+
+3. **Parsing and sorting the package list based on urgency (1: urgent, 5: not urgent)**
+   - 
 
 
 
