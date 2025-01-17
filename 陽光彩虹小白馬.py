@@ -61,6 +61,8 @@ def parse_route_and_packages(route: List[List[str]], packages: List[Dict]) -> Tu
     Returns:
         Tuple[Tuple[int, int], Tuple[int, int], Dict[str, Tuple[int, int]]]: Coordinates of the start, end points, and package locations.
     """
+
+    # Initialize the variables with null values
     start, end = None, None
     package_locations = {}
 
