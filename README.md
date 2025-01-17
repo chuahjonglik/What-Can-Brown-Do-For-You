@@ -54,7 +54,6 @@ This approach efficiently handles multiple deliveries with varying priorities, p
 - matplotlib
 - numpy
 
-## FAQ
-**Additional Packages Used:**
-- matplotlib
-- numpy
+## QnAs
+1. Can  the Indian man go either horizontal and vertical or horizontal, vertical and diagonal?
+> Yes, he can go in all directions, including diagonally.
