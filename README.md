@@ -67,10 +67,9 @@ This approach efficiently handles multiple deliveries with varying priorities, p
    - Storing packages list and route: `packages: List[Dict], route: List[List[str]}`
    - `execute_delivery(packages, route)` function is called to start the simulation.
 
-Now inside `execute_delivery(packages, route)` function,
 2. Identifying Start, End Points, and Package Locations
-   - `start, end, package_locations = parse_route_and_packages(route, packages)`: Calling _parse_route_and_packages()_ function to get coordinates of the start, end points, and each package locations.
-   - Inside _parse_route_and_packages()_ function, 
+   - Now inside `execute_delivery(packages, route)` function, `start, end, package_locations = parse_route_and_packages(route, packages)`: Calling `parse_route_and_packages()` function to get coordinates of the start, end points, and each package locations.
+   - Inside `parse_route_and_packages()` function, 
       ```python
       for i, row in enumerate(route):
         for j, cell in enumerate(row):
