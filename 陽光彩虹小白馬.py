@@ -47,7 +47,8 @@ def parse_packages(package_list: List[Dict]) -> List[Dict]:
     Returns:
         List[Dict]: Sorted package list.
     """
-    return sorted(package_list, key=lambda x: (x['urgency'], -x['weight']))
+    # Sorting by bringing the urgent and heavier packages to the front in the list
+    return sorted(package_list, key=lambda x: (x['urgency'], -x['weight']))     
 
 # Function to identify start, end points, and package locations
 def parse_route_and_packages(route: List[List[str]], packages: List[Dict]) -> Tuple[Tuple[int, int], Tuple[int, int], Dict[str, Tuple[int, int]]]:
@@ -186,19 +187,23 @@ def execute_delivery(packages: List[Dict], route: List[List[str]]) -> None:
         packages (List[Dict]): List of package details.
         route (List[List[str]]): 2D map representation of the route.
     """
+    # Finding the coordinates of start, end and all packages, then sorting based on urgency and weight
     start, end, package_locations = parse_route_and_packages(route, packages)
     sorted_packages = parse_packages(packages)
     print(f"Delivery Simulation Starts with {len(sorted_packages)} packages.")
 
+    # Initializing Mr Brown's truck position, capacity, content and running time
     current_position = start
     truck_capacity = 10
     remaining_capacity = truck_capacity
     truck_contents = []
     total_running_time = 0
 
+    # Starting interative mode for figure in matplot and setting the figure size based on the route matrix
     plt.ion()
     fig, ax = plt.subplots(figsize=(8, 8))
 
+    # Loop until all packages are delivered to warehouse
     while sorted_packages:
         for package in sorted_packages[:]:
             package_id = package['id']

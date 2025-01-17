@@ -69,9 +69,8 @@ This approach efficiently handles multiple deliveries with varying priorities, p
 
 2. **Identifying Start, End Points, and Package Locations**
    - Now inside `execute_delivery(packages, route)` function,
-      
+
       `start, end, package_locations = parse_route_and_packages(route, packages)`: Calling `parse_route_and_packages()` function to get coordinates of the start, end points, and each package locations.
-      
    - Inside `parse_route_and_packages()` function, 
       ```python
       for i, row in enumerate(route):
@@ -89,8 +88,20 @@ This approach efficiently handles multiple deliveries with varying priorities, p
       Then, once the start, end and all package cells are identified, it will be stored and returned. If the start and end points failed to be located, it will return an error.
 
 3. **Parsing and sorting the package list based on urgency (1: urgent, 5: not urgent)**
-   - 
+   - `sorted_packages = parse_packages(packages)` is used to store the list of sorted/ arranged package list based on urgency and weight.
+   - `sorted()` function is used for the sorting process by prioritising the urgent and heavier packages.
 
+4. **Initializing Mr Brown's truck position, capacity, content and running time**
+   ```python
+      current_position = start
+      truck_capacity = 10
+      remaining_capacity = truck_capacity
+      truck_contents = []
+      total_running_time = 0
+   ```
+   This will set Brown's truck position to the starting point previously identified and set how much unit weight can the truck handle and how much it still can handle (i.e. <= 10). The other variables are used for displaying the packages the truck are handling and the current cumulative running time.
+
+5. 
 
 
 
