@@ -49,7 +49,7 @@ def parse_packages(package_list: List[Dict]) -> List[Dict]:
     """
     return sorted(package_list, key=lambda x: (x['urgency'], -x['weight']))
 
-# Function to parse the route to identify start, end points, and package locations
+# Function to identify start, end points, and package locations
 def parse_route_and_packages(route: List[List[str]], packages: List[Dict]) -> Tuple[Tuple[int, int], Tuple[int, int], Dict[str, Tuple[int, int]]]:
     """
     Parse the route to identify start, end points, and package locations.

@@ -64,8 +64,12 @@ This approach efficiently handles multiple deliveries with varying priorities, p
 
 ### Detailed Execution Flow:
 1. **The Very First Thing:**
-   - The list of packages are stored in list with dictionary. The route is stored in nested list.
-   - `execute_delivery(packages, route)` will be execute to start the simulation.
+   - Storing packages list and route: `packages: List[Dict], route: List[List[str]}`
+   - `execute_delivery(packages, route)` function is called to start the simulation.
+
+Now in `execute_delivery(packages, route)` function,
+2. Identifying Start, End Points, and Package Locations
+   - `start, end, package_locations = parse_route_and_packages(route, packages)`: Calling _parse_route_and_packages()_ function to get oordinates of the start, end points, and package locations.
 
 
 
