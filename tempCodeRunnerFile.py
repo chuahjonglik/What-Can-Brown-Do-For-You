@@ -1,0 +1,1 @@
+len(truck_contents) + 1

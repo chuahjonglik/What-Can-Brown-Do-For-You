@@ -9,6 +9,10 @@ Smart Delivery Solution: Route Optimization and Package Handling
 | **Cumulative Development Time**   | About 8 hours   |
 | **Progamming language**:          | Python          |
 
+**Challenges**:
+- Simulating the movement time
+- Making the animation continous without overlapping
+
 ## Overview of the Code
 
 This program simulates a delivery scenario where a delivery person picks up packages from various points on a 2D map and delivers them to a warehouse based on their urgency and weight, while adhering to weight limits. The delivery is visualized with dynamic animations, showing the paths taken and the state of the delivery truck at each step.
@@ -101,8 +105,19 @@ This approach efficiently handles multiple deliveries with varying priorities, p
    ```
    This will set Brown's truck position to the starting point previously identified and set how much unit weight can the truck handle and how much it still can handle (i.e. <= 10). The other variables are used for displaying the packages the truck are handling and the current cumulative running time.
 
-5. 
+5. **Initializing the matplot figure**
+   ```python
+      plt.ion()
+      fig, ax = plt.subplots(figsize=(8, 8))
+   ```
+   This enables the interative mode of the figure so that the animation is continous. `figsize=(8, 8)` will set the size of the map. **These values need be changed if you wants a visually bigger or smaller figure**.
 
+6. **Simulating pathplannning** 
+   - `while sorted_packages:` is used to ensure the all code will loop until all packages is fully removed (delivered). 
+   - `for package in sorted_packages[:]` as the variable name suggests, the packages to be picked up first are based on urgency and weight with no limitations on the total number of packages to be handled.
+   - `if package_weight <= remaining_capacity:` is used to ensure the truck is not overloaded.
+   - `a_star(route, current_position, package_location)` function is called to determine the shortest possible path to reach to the target package and also to the warehouse (end point). Heap queue algorithm is used to find the shortest path.
+   - matplotlib is then used to visualize the movement and the map.
 
 
 ## References
