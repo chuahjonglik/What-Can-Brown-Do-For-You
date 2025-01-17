@@ -72,13 +72,21 @@ Now inside `execute_delivery(packages, route)` function,
    - `start, end, package_locations = parse_route_and_packages(route, packages)`: Calling _parse_route_and_packages()_ function to get coordinates of the start, end points, and each package locations.
    - Inside _parse_route_and_packages()_ function, 
       > for i, row in enumerate(route):
+
       > for j, cell in enumerate(row):
+
       >     # Identify the start, end and package cell by the letter or first letter of the cell
+
       >     if cell == 'S':
+
       >        start = (i, j)
+
       >     elif cell == 'E':
+
       >        end = (i, j)
+
       >     elif cell.startswith('P'):
+      
       >        package_locations[cell] = (i, j)    # Storing based on the id of the package
 
 
