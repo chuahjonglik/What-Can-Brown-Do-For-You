@@ -48,3 +48,13 @@ This program simulates a delivery scenario where a delivery person picks up pack
 - Final map state displayed after completing the simulation.
 
 This approach efficiently handles multiple deliveries with varying priorities, provides clear insights via animations, and simulates realistic timing constraints for package handling and movement.
+
+## Code Operation
+**Additional Packages Used:**
+- matplotlib
+- numpy
+
+## FAQ
+**Additional Packages Used:**
+- matplotlib
+- numpy
