@@ -8,7 +8,6 @@ This program simulates a delivery scenario where a delivery person picks up pack
 ## Project Details
 
 | **Cumulative Development Time**  | About 8 hours |
-
 | **Progamming language**:         | Python |
 
 #### Key Features:
