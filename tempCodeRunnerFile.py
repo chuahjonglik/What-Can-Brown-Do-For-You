@@ -1,1 +1,1 @@
-len(truck_contents) + 1
+heuristic

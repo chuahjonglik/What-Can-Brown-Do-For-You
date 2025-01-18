@@ -132,7 +132,7 @@ def a_star(route: List[List[str]], start: Tuple[int, int], end: Tuple[int, int])
             if tentative_g_score < g_score.get(neighbor, float('inf')):
                 came_from[neighbor] = current
                 g_score[neighbor] = tentative_g_score
-                f_score[neighbor] = tentative_g_score + heuristic(neighbor, end)    # Calculate the 'cost' or priority
+                f_score[neighbor] = tentative_g_score + heuristic(neighbor, end)
                 if neighbor not in [i[1] for i in open_set]:
                     heapq.heappush(open_set, (f_score[neighbor], neighbor))
 
