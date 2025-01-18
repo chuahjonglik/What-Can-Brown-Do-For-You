@@ -211,6 +211,7 @@ def execute_delivery(packages: List[Dict], route: List[List[str]]) -> None:
             package_description = package['description']
             package_location = package_locations[package_id]
 
+            #  Ensure the truck is not overloaded
             if package_weight <= remaining_capacity:
                 # Pick up the package
                 path_to_package = a_star(route, current_position, package_location)
@@ -222,6 +223,7 @@ def execute_delivery(packages: List[Dict], route: List[List[str]]) -> None:
 
                 time.sleep(package_weight * 0.5)  # Pickup time proportional to weight
 
+                # Displaying what Brown is handling
                 print(f"Picked up Package {package_id} at {package_location}")
                 truck_contents.append(package_description)
                 remaining_capacity -= package_weight
@@ -232,8 +234,8 @@ def execute_delivery(packages: List[Dict], route: List[List[str]]) -> None:
                 # Remove package from map
                 route[package_location[0]][package_location[1]] = '.'
 
+                # Easter Egg
                 if package_description == 'Chinese Propaganda Books':
-                    # Mbox('Oh? A suprise', 'You might want to open this package.', 4)
                     MsgBox()
 
         # Deliver to warehouse

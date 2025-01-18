@@ -3,11 +3,12 @@ Smart Delivery Solution: Route Optimization and Package Handling
 
 ## Project Details
 
-| **Title**                         | Content         |
-| ---                               | ---             |
-| **Author**                        | Chuah Jong Lik  |
-| **Cumulative Development Time**   | About 8 hours <br/> excluding documentation time |
-| **Progamming language**:          | Python          |
+| **Title**                         | Content                                                         |
+| ---                               | ---                                                             |
+| **Author**                        | Chuah Jong Lik                                                  |
+| **Cumulative Development Time**   | About 8 hours <br/> excluding documentation time                |
+| **Progamming language**:          | Python                                                          |
+| **Main Module**:                  | Heapq (Pathplanning) <br/> Matplotlib (Visual display)          |
 
 **Challenges**:
 - Simulating the movement time
@@ -112,12 +113,96 @@ This approach efficiently handles multiple deliveries with varying priorities, p
    ```
    This enables the interative mode of the figure so that the animation is continous. `figsize=(8, 8)` will set the size of the map. **These values need be changed if you wants a visually bigger or smaller figure**.
 
-6. **Simulating pathplannning** 
+6. **Simulating pathplannning: picking up the package** 
    - `while sorted_packages:` is used to ensure the all code will loop until all packages is fully removed (delivered). 
    - `for package in sorted_packages[:]` as the variable name suggests, the packages to be picked up first are based on urgency and weight with no limitations on the total number of packages to be handled.
    - `if package_weight <= remaining_capacity:` is used to ensure the truck is not overloaded.
-   - `a_star(route, current_position, package_location)` function is called to determine the shortest possible path to reach to the target package and also to the warehouse (end point). Heap queue algorithm is used to find the shortest path.
-   - matplotlib is then used to visualize the movement and the map.
+   - `a_star(route, current_position, package_location)` function is called to determine the shortest possible path to reach to the target package. Heap queue algorithm is used to find the shortest path.
+   - matplotlib is then used to visualize the movement and the map using `visualize_with_animation()` function.
+   - `current_position = package_location` updates the current posiition of the truck to the package location for so that the next path can be determined.
+   - `route[package_location[0]][package_location[1]] = '.'` Once the package is pickup, the map will be updated so that the package is no longer available and replaced by open space.
+
+7. **Simulating pathplannning: sending package to the warehouse** 
+   - `a_star(route, current_position, package_location)` function is called to determine the shortest possible path to reach to the target package. Again, heap queue algorithm is used to find the shortest path.
+
+
+
+## QnA
+1. **What is A\* Algorithm?**
+   The **A\*** (A-Star) algorithm is a popular and efficient graph traversal and pathfinding algorithm. It is commonly used in situations requiring finding the shortest path from a starting node to a target node in a weighted graph. A\* is widely used in robotics, game development, and navigation systems because of its ability to find the optimal path while considering both the cost of the path traveled and the estimated cost to the destination.
+
+   **How A\* Works**
+
+   The algorithm uses a combination of two functions:
+   1. **g(n):** The cost to move from the starting node to the current node `n`.
+   2. **h(n):** A heuristic function estimating the cost to move from node `n` to the target node (this is an educated guess of the remaining distance).
+   3. **f(n):** The total estimated cost of the path through node `n`.  
+      \[
+      f(n) = g(n) + h(n)
+      \]
+
+   The algorithm iteratively explores the least-cost node (based on `f(n)`) until the target is reached or no path exists.
+
+
+   **Steps of the A\* Algorithm:**
+
+   1. **Initialization:**
+      - Start with two sets:
+      - **Open set**: Nodes to be evaluated. Begin with the start node.
+      - **Closed set**: Nodes already evaluated.
+      - Set \( g(start) = 0 \) and calculate \( f(start) = h(start) \).
+
+   2. **Explore Nodes:**
+      - Select the node in the open set with the lowest \( f(n) \).
+      - If this node is the target, the path is found.
+      - Otherwise, move this node to the closed set.
+
+   3. **Neighbor Evaluation:**
+      - For each neighbor of the current node:
+      - If it's in the closed set, skip it.
+      - Calculate tentative \( g(neighbor) = g(current) + cost(current \to neighbor) \).
+      - If the neighbor is not in the open set or if the new \( g(neighbor) \) is smaller than the previously computed one:
+         - Update \( g(neighbor) \) and \( f(neighbor) = g(neighbor) + h(neighbor) \).
+         - Set the current node as the parent of the neighbor for path reconstruction.
+         - If not already in the open set, add the neighbor to it.
+
+   4. **Repeat:**
+      - Continue the process until the open set is empty or the target is reached.
+
+   5. **Path Reconstruction:**
+      - Starting from the target node, follow the parent pointers back to the start to reconstruct the path.
+
+   **Properties of A\*:**
+   - **Optimality:** A\* guarantees the shortest path if:
+   - The heuristic function \( h(n) \) is admissible (never overestimates the true cost to the goal).
+   - **Completeness:** It will always find a path if one exists.
+   - **Efficiency:** More efficient than other algorithms like Dijkstra's when a suitable heuristic is used.
+
+   **Advantages:**
+   1. Combines strengths of Dijkstra's Algorithm and Greedy Best-First Search.
+   2. Finds an optimal path more quickly by balancing exploration and estimation.
+   3. Flexible with different heuristic functions, adaptable to many types of problems.
+
+   **Disdvantages:**
+   ### Disadvantages of the A\* Algorithm:
+   1. High Memory Usage: Maintains large sets of nodes (open and closed) which can consume significant memory for large search spaces.
+   2. Performance Limitations: Inefficient in massive graphs if the heuristic is weak, leading to unnecessary node exploration.
+   3. Dependence on the Heuristic: 
+      - Poor heuristics can degrade performance.
+      - Overestimating heuristics may compromise optimality.
+   4. Not Real-Time Friendly: Recalculation in dynamic environments can be computationally expensive and slow.
+   5. Path Smoothing Required: May produce unnatural paths, especially in grid systems, requiring additional post-processing.
+   6. Computational Overhead: Balancing cost \(g(n)\) and heuristic \(h(n)\) increases complexity compared to simpler algorithms.
+   7. Sensitive to Graph Representation: Graph structure and representation significantly affect efficiency and speed.
+
+   **Example of A\* in Action:**
+   For a grid-like map, where:
+   - \( g(n) \): Total cost to travel from start to `n` (e.g., based on cell distance).
+   - \( h(n) \): Manhattan distance or Euclidean distance to the goal (heuristic).
+
+   At each step, the algorithm evaluates the "cheapest" cell to expand by considering both the path traveled so far and the remaining distance estimate, leading to the shortest route efficiently.
+
+
 
 
 ## References
@@ -127,3 +212,5 @@ This approach efficiently handles multiple deliveries with varying priorities, p
 - https://docs.python.org/3/library/
 - https://www.learnbyexample.org/
 - https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/organizing-information-with-tables
+- https://docs.python.org/3/library/heapq.html
+- https://realpython.com/python-heapq-module/
