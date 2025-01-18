@@ -8,6 +8,7 @@ Smart Delivery Solution: Route Optimization and Package Handling
 | **Author**                        | Chuah Jong Lik                                                  |
 | **Cumulative Development Time**   | About 8 hours <br/> excluding documentation time                |
 | **Progamming language**:          | Python                                                          |
+| **Algorithm**:                    | A*                                                              |
 | **Main Module**:                  | Heapq (Pathplanning) <br/> Matplotlib (Visual display)          |
 
 **Challenges**:
@@ -25,7 +26,7 @@ This program simulates a delivery scenario where a delivery person picks up pack
    - Packages are picked up only if their weight fits within the remaining capacity of the truck.
 
 2. **Pathfinding**:
-   - Uses the **A* algorithm** to compute the shortest path between two points on the map.
+   - Uses the **A\* algorithm** to compute the shortest path between two points on the map.
    - Supports diagonal movement if it's unblocked.
 
 3. **Visualization**:
