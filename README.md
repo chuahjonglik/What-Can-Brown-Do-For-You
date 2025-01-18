@@ -8,7 +8,7 @@ Smart Delivery Solution: Route Optimization and Package Handling
 | **Author**                        | Chuah Jong Lik                                                  |
 | **Cumulative Development Time**   | About 8 hours <br/> excluding documentation time                |
 | **Progamming language**:          | Python                                                          |
-| **Algorith**:                     | A*                                                              |
+| **Algorithm**:                    | A*                                                              |
 | **Main Module**:                  | Heapq (Pathplanning) <br/> Matplotlib (Visual display)          |
 
 **Challenges**:
