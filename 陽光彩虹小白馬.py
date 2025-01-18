@@ -107,7 +107,7 @@ def a_star(route: List[List[str]], start: Tuple[int, int], end: Tuple[int, int])
     def get_neighbors(node):
         directions = [
             (-1, 0), (1, 0), (0, -1), (0, 1),  # Cardinal directions
-            #(-1, -1), (-1, 1), (1, -1), (1, 1)  # Diagonal directions
+            (-1, -1), (-1, 1), (1, -1), (1, 1)  # Diagonal directions
         ]
         neighbors = []
         for dr, dc in directions:
@@ -181,6 +181,35 @@ def visualize_with_animation(route: List[List[str]], path: List[Tuple[int, int]]
             ax.set_title(f"Running time: {running_time:.1f}s")
         plt.pause(0.1)
 
+def visualize_path(route: List[List[str]], path: List[Tuple[int, int]]) -> List[List[str]]:
+    """
+    Visualize the path taken on the route grid.
+
+    Args:
+        route (List[List[str]]): Original 2D map of the route.
+        path (List[Tuple[int, int]]): List of coordinates in the path.
+
+    Returns:
+        List[List[str]]: Updated 2D map with the path visualized.
+    """
+    visualized_route = [row[:] for row in route]  # Make a deep copy of the route
+    for r, c in path:
+        if visualized_route[r][c] not in ['S', 'E']:  # Avoid overwriting Start or End points
+            visualized_route[r][c] = 'P'
+    return visualized_route
+
+def display_route(route: List[List[str]]) -> None:
+    """
+    Display the 2D route in a visually friendly format.
+
+    Args:
+        route (List[List[str]]): 2D map of the route.
+    """
+
+    for row in route:
+        print(" ".join(row))
+    print("\n")
+
 # Function to simulate package delivery based on urgency, package weight limits, and shortest route
 def execute_delivery(packages: List[Dict], route: List[List[str]]) -> None:
     """
@@ -193,11 +222,15 @@ def execute_delivery(packages: List[Dict], route: List[List[str]]) -> None:
     # Finding the coordinates of start, end and all packages, then sorting based on urgency and weight
     start, end, package_locations = parse_route_and_packages(route, packages)
     sorted_packages = parse_packages(packages)
+    
+    for i in range(len(sorted_packages)):
+        print(f"Sorted: {sorted_packages[i]}")
+
     print(f"Delivery Simulation Starts with {len(sorted_packages)} packages.")
 
     # Initializing Mr Brown's truck position, capacity, content and running time
     current_position = start
-    truck_capacity = 10
+    truck_capacity = 20
     remaining_capacity = truck_capacity
     truck_contents = []
     total_running_time = 0
@@ -220,12 +253,16 @@ def execute_delivery(packages: List[Dict], route: List[List[str]]) -> None:
                 path_to_package = a_star(route, current_position, package_location)
                 print(f"Path Taken: {path_to_package}")
 
+                # Visualize the path on the map
+                visualized_route = visualize_path(route, path_to_package)
+                display_route(visualized_route)
+
                 for step in path_to_package:
-                    total_running_time += (11 - remaining_capacity) * 0.2
-                    time.sleep((11 - remaining_capacity) * 0.2)  # Simulate the moving time
+                    total_running_time += (truck_capacity + 1 - remaining_capacity) * 0.1
+                    time.sleep((truck_capacity + 1 - remaining_capacity) * 0.1)  # Simulate the moving time
                     visualize_with_animation(route, [step], ax, truck_contents, truck_capacity - remaining_capacity, total_running_time)
 
-                time.sleep(package_weight * 0.2)  # Pickup time proportional to weight
+                time.sleep(package_weight * 0.1)  # Pickup time proportional to weight
 
                 # Displaying what Brown is handling
                 print(f"Picked up Package {package_id} at {package_location}")
@@ -239,20 +276,24 @@ def execute_delivery(packages: List[Dict], route: List[List[str]]) -> None:
                 route[package_location[0]][package_location[1]] = '.'
 
                 # Easter Egg
-                if package_description == 'Chinese Propaganda Books':
-                    MsgBox()
+                # if package_description == 'Chinese Propaganda Books':
+                #     MsgBox()
 
         # Deliver to warehouse
         path_to_warehouse = a_star(route, current_position, end)
         print(f"Path Taken: {path_to_warehouse}")
 
+        # Visualize the path on the map
+        visualized_route = visualize_path(route, path_to_warehouse)
+        display_route(visualized_route)
+
         for step in path_to_warehouse:
-            total_running_time += (11 - remaining_capacity) * 0.2
-            time.sleep((11 - remaining_capacity) * 0.2)  # Simulate the moving time
+            total_running_time += (truck_capacity + 1 - remaining_capacity) * 0.1
+            time.sleep((truck_capacity + 1 - remaining_capacity) * 0.1)  # Simulate the moving time
             visualize_with_animation(route, [step], ax, truck_contents, truck_capacity - remaining_capacity, total_running_time)
 
         print("Delivered to Warehouse")
-        time.sleep((11 - remaining_capacity) * 0.2)  # Unloading time proportional to weight
+        time.sleep((truck_capacity + 1 - remaining_capacity) * 0.1)  # Unloading time proportional to weight
 
         current_position = end
         remaining_capacity = truck_capacity
@@ -274,26 +315,54 @@ It basically isolate the main logic of the program from reusable components.
 '''
 if __name__ == "__main__":
     # List of Packages in format of dictionary in a list
+    # packages = [
+    #     {"id": "PKG001", "urgency": 3, "weight": 10, "description": "An Elephant"},
+    #     {"id": "PKG002", "urgency": 5, "weight": 2, "description": "A Tiny Elephant"},
+    #     {"id": "PKG003", "urgency": 1, "weight": 7, "description": "Child Labourers"},
+    #     {"id": "PKG004", "urgency": 2, "weight": 4, "description": "Drinking Water"},
+    #     {"id": "PKG005", "urgency": 2, "weight": 6, "description": "Chinese Propaganda Books"},
+    # ]
+
+    # 2D Map of route in format of matrix
+    # route = [
+    #     ['.', '.', '.', 'X', 'PKG001', '.', '.', '.', '.', '.'],
+    #     ['.', 'X', '.', 'X', '.', 'X', '.', '.', '.', '.'],
+    #     ['.', 'PKG005', '.', '.', '.', '.', '.', 'X', '.', '.'],
+    #     ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'],
+    #     ['X', 'X', '.', 'X', '.', 'X', '.', 'X', '.', '.'],
+    #     ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'],
+    #     ['X', 'X', 'X', 'X', 'X', '.', 'PKG002', '.', '.', '.'],
+    #     ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'],
+    #     ['.', 'E', '.', '.', '.', 'X', 'X', 'X', 'PKG003', 'X'],
+    #     ['.', '.', 'PKG004', '.', '.', '.', '.', '.', '.', '.'],
+    # ]
+
+    # List of Packages in format of dictionary in a list
     packages = [
-        {"id": "PKG001", "urgency": 3, "weight": 10, "description": "An Elephant"},
-        {"id": "PKG002", "urgency": 5, "weight": 2, "description": "A Tiny Elephant"},
-        {"id": "PKG003", "urgency": 1, "weight": 7, "description": "Child Labourers"},
-        {"id": "PKG004", "urgency": 2, "weight": 4, "description": "Drinking Water"},
-        {"id": "PKG005", "urgency": 2, "weight": 6, "description": "Chinese Propaganda Books"},
+        {"id": "PKG4", "urgency": 2, "weight": 13, "description": "A Live Body"},
+        {"id": "PKG7", "urgency": 2, "weight": 12, "description": "The President"},
+        {"id": "PKG6", "urgency": 3, "weight": 15, "description": "The President"},
+        {"id": "PKG5", "urgency": 3, "weight": 10, "description": "An Elephant"},
+        {"id": "PKG3", "urgency": 3, "weight": 7, "description": "A Secret Letter"},
+        {"id": "PKG1", "urgency": 3, "weight": 3, "description": "Chinese Propaganda Books"},
+        {"id": "PKG8", "urgency": 4, "weight": 13, "description": "The President"},
+        {"id": "PKG9", "urgency": 5, "weight": 13, "description": "A Live Body"},
+        {"id": "PKG2", "urgency": 5, "weight": 5, "description": "A Bomb"},
+        {"id": "PKG10", "urgency": 5, "weight": 3, "description": "A Feather"},
     ]
 
     # 2D Map of route in format of matrix
     route = [
-        ['S', '.', '.', 'X', 'PKG001', '.', '.', '.', '.', '.'],
-        ['.', 'X', '.', 'X', '.', 'X', '.', '.', '.', '.'],
-        ['.', 'PKG005', '.', '.', '.', '.', '.', 'X', '.', '.'],
-        ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'],
-        ['X', 'X', '.', 'X', '.', 'X', '.', 'X', '.', '.'],
-        ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'],
-        ['X', 'X', 'X', 'X', 'X', '.', 'PKG002', '.', '.', '.'],
-        ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'],
-        ['.', 'E', '.', '.', '.', 'X', 'X', 'X', 'PKG003', 'X'],
-        ['.', '.', 'PKG004', '.', '.', '.', '.', '.', '.', '.'],
+        ['PKG4', '.', '.', '.', 'X', 'X', '.', 'X', 'X', 'X'],
+        ['.', 'X', '.', '.', 'X', '.', '.', 'PKG8', '.', '.'],
+        ['.', '.', 'PKG7', '.', '.', '.', '.', '.', 'PKG9', '.'],
+        ['PKG10', '.', '.', '.', 'X', '.', '.', 'X', '.', 'X'],
+        ['.', '.', '.', 'PKG2', '.', '.', '.', '.', 'X', '.'],
+        ['.', '.', 'X', '.', '.', '.', 'X', '.', 'X', 'X'],
+        ['.', 'PKG6', '.', '.', '.', '.', '.', '.', '.', '.'],
+        ['X', '.', 'X', 'E', '.', '.', '.', 'PKG5', 'X', '.'],
+        ['X', '.', '.', '.', 'S', 'X', '.', 'X', 'X', '.'],
+        ['X', 'PKG3', '.', '.', 'PKG1', 'X', 'X', '.', '.', '.']
     ]
 
     # Excute the simulation

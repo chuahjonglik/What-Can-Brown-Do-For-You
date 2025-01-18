@@ -1,0 +1,23 @@
+Sorted Package List:
+ID: PKG4, Urgency: 2, Weight: 13, Description: A Live Body
+ID: PKG7, Urgency: 2, Weight: 12, Description: The President
+ID: PKG6, Urgency: 3, Weight: 15, Description: The President
+ID: PKG5, Urgency: 3, Weight: 10, Description: An Elephant
+ID: PKG3, Urgency: 3, Weight: 7, Description: A Secret Letter
+ID: PKG1, Urgency: 3, Weight: 3, Description: Chinese Propaganda Books
+ID: PKG8, Urgency: 4, Weight: 13, Description: The President
+ID: PKG9, Urgency: 5, Weight: 13, Description: A Live Body
+ID: PKG2, Urgency: 5, Weight: 5, Description: A Bomb
+ID: PKG10, Urgency: 5, Weight: 3, Description: A Feather
+
+Generated Obstacle Map:
+. . . . X X . X X X 
+. X . . X . . . . . 
+. . . . . . . . . . 
+. . . . X . . X . X 
+. . . . . . . . X . 
+. . X . . . X . X X 
+. . . . . . . . . . 
+X . X E . . . . X . 
+X . . . S X . X X . 
+X . . . . X X . . . 
