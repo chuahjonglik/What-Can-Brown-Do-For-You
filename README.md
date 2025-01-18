@@ -65,7 +65,7 @@ This approach efficiently handles multiple deliveries with varying priorities, p
    - The delivery person starts at the designated starting point and moves sequentially to pick up packages based on the sorted list.
    - After reaching the capacity limit or exhausting the sorted package list, the delivery person travels to the warehouse to unload.
 3. **Animation and Visualization**:
-   - Every movement, package pickup, and delivery step is dynamically visualized, providing real-time feedback.
+   - Every movement, package pickup, and delivery step is dynamically visualized, providing near real-time feedback.
 
 ### Detailed Execution Flow:
 1. **The Very First Thing:**
@@ -118,7 +118,7 @@ This approach efficiently handles multiple deliveries with varying priorities, p
    - `for package in sorted_packages[:]` as the variable name suggests, the packages to be picked up first are based on urgency and weight with no limitations on the total number of packages to be handled.
    - `if package_weight <= remaining_capacity:` is used to ensure the truck is not overloaded.
    - `a_star(route, current_position, package_location)` function is called to determine the shortest possible path to reach to the target package. Heap queue algorithm is used to find the shortest path.
-   - Running time and the moving simulation is done by the following section of code:
+   - The cumulative running time and the moving time simulation is calculated and implemented by the following section of code:
       ```python
       total_running_time += (11 - remaining_capacity) * 0.2
       time.sleep((11 - remaining_capacity) * 0.2)  # Simulate the moving time
@@ -128,7 +128,12 @@ This approach efficiently handles multiple deliveries with varying priorities, p
    - `route[package_location[0]][package_location[1]] = '.'` Once the package is pickup, the map will be updated so that the package is no longer available and replaced by open space.
 
 7. **Simulating pathplannning: sending package to the warehouse** 
+
+   This part is similar to previous part.
+
    - `a_star(route, current_position, package_location)` function is called to determine the shortest possible path to reach to the target package. Again, heap queue algorithm is used to find the shortest path.
+
+   Part 6 and 7 are repeated until all packages are sent to the warehouse.
 
 
 

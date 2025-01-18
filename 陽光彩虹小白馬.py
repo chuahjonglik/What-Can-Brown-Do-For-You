@@ -19,7 +19,7 @@ def MsgBox():
     if res == 'yes' :
         webbrowser.open('https://www.youtube.com/embed/_TiSUBMCJ90?autoplay=1')
     else :
-        mb.showwarning('Government', 'Social credits -1')
+        mb.showwarning('Alert', 'Social credits -1')
 
 # Function to calculate Manhattan distance between two points (distance between two points in a grid-like path)
 def heuristic(a: Tuple[int, int], b: Tuple[int, int]) -> int:
@@ -91,8 +91,8 @@ def a_star(route: List[List[str]], start: Tuple[int, int], end: Tuple[int, int])
 
     Args:
         route (List[List[str]]): 2D map of the route.
-        start (Tuple[int, int]): Starting coordinates.
-        end (Tuple[int, int]): Ending coordinates.
+        start (Tuple[int, int]): Starting coordinates. Eg. start, current position after pickup or unload
+        end (Tuple[int, int]): Ending coordinates. Eg. warehouse, package location
 
     Returns:
         List[Tuple[int, int]]: Path from start to end.
@@ -132,7 +132,7 @@ def a_star(route: List[List[str]], start: Tuple[int, int], end: Tuple[int, int])
             if tentative_g_score < g_score.get(neighbor, float('inf')):
                 came_from[neighbor] = current
                 g_score[neighbor] = tentative_g_score
-                f_score[neighbor] = tentative_g_score + heuristic(neighbor, end)
+                f_score[neighbor] = tentative_g_score + heuristic(neighbor, end)    # Calculate the 'cost' or priority
                 if neighbor not in [i[1] for i in open_set]:
                     heapq.heappush(open_set, (f_score[neighbor], neighbor))
 
@@ -151,6 +151,7 @@ def visualize_with_animation(route: List[List[str]], path: List[Tuple[int, int]]
         total_weight (int, optional): Total weight of items in the truck.
         running_time (float, optional): Total running time of the simulation.
     """
+    # Creating Grid and Setting Cell
     rows, cols = len(route), len(route[0])
     grid = np.zeros((rows, cols))
     for r in range(rows):
@@ -164,6 +165,7 @@ def visualize_with_animation(route: List[List[str]], path: List[Tuple[int, int]]
             elif route[r][c].startswith('P'):
                 grid[r][c] = 4
 
+    # Display Brown's location
     for r, c in path:
         grid[r][c] = 1
         ax.clear()
@@ -171,6 +173,7 @@ def visualize_with_animation(route: List[List[str]], path: List[Tuple[int, int]]
         ax.set_xticks(range(cols))
         ax.set_yticks(range(rows))
 
+        # Display what Brown is handling and the cumulative running time
         if truck_contents:
             contents_str = ", ".join(truck_contents)
             ax.set_title(f"Currently handling: {contents_str}\nTotal weight: {total_weight}kg\nRunning time: {running_time:.1f}s")
