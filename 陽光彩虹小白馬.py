@@ -107,7 +107,7 @@ def a_star(route: List[List[str]], start: Tuple[int, int], end: Tuple[int, int])
     def get_neighbors(node):
         directions = [
             (-1, 0), (1, 0), (0, -1), (0, 1),  # Cardinal directions
-            (-1, -1), (-1, 1), (1, -1), (1, 1)  # Diagonal directions
+            #(-1, -1), (-1, 1), (1, -1), (1, 1)  # Diagonal directions
         ]
         neighbors = []
         for dr, dc in directions:
@@ -215,13 +215,14 @@ def execute_delivery(packages: List[Dict], route: List[List[str]]) -> None:
             if package_weight <= remaining_capacity:
                 # Pick up the package
                 path_to_package = a_star(route, current_position, package_location)
+                print(f"Path Taken: {path_to_package}")
 
                 for step in path_to_package:
-                    total_running_time += (len(truck_contents) + 1) * 0.5
-                    time.sleep((len(truck_contents) + 1) * 0.5)  # Simulate the moving time
+                    total_running_time += (11 - remaining_capacity) * 0.2
+                    time.sleep((11 - remaining_capacity) * 0.2)  # Simulate the moving time
                     visualize_with_animation(route, [step], ax, truck_contents, truck_capacity - remaining_capacity, total_running_time)
 
-                time.sleep(package_weight * 0.5)  # Pickup time proportional to weight
+                time.sleep(package_weight * 0.2)  # Pickup time proportional to weight
 
                 # Displaying what Brown is handling
                 print(f"Picked up Package {package_id} at {package_location}")
@@ -240,12 +241,15 @@ def execute_delivery(packages: List[Dict], route: List[List[str]]) -> None:
 
         # Deliver to warehouse
         path_to_warehouse = a_star(route, current_position, end)
+        print(f"Path Taken: {path_to_warehouse}")
 
         for step in path_to_warehouse:
-            total_running_time += (len(truck_contents) + 1) * 0.5
+            total_running_time += (11 - remaining_capacity) * 0.2
+            time.sleep((11 - remaining_capacity) * 0.2)  # Simulate the moving time
             visualize_with_animation(route, [step], ax, truck_contents, truck_capacity - remaining_capacity, total_running_time)
 
         print("Delivered to Warehouse")
+        time.sleep((11 - remaining_capacity) * 0.2)  # Unloading time proportional to weight
 
         current_position = end
         remaining_capacity = truck_capacity

@@ -36,7 +36,7 @@ This program simulates a delivery scenario where a delivery person picks up pack
      - The total running time of the simulation.
 
 4. **Time Simulation**:
-   - Pickup time is proportional to package weight (`0.5 * weight` seconds).
+   - Pickup time is proportional to package weight (`0.2 * weight` seconds).
    - The speed of moving between grid points depends on the total weight of packages being handled (`0.2 * (weight + 1)` seconds per unit block).
 
 5. **Dynamic Map Updates**:
@@ -118,6 +118,11 @@ This approach efficiently handles multiple deliveries with varying priorities, p
    - `for package in sorted_packages[:]` as the variable name suggests, the packages to be picked up first are based on urgency and weight with no limitations on the total number of packages to be handled.
    - `if package_weight <= remaining_capacity:` is used to ensure the truck is not overloaded.
    - `a_star(route, current_position, package_location)` function is called to determine the shortest possible path to reach to the target package. Heap queue algorithm is used to find the shortest path.
+   - Running time and the moving simulation is done by the following section of code:
+      ```python
+      total_running_time += (11 - remaining_capacity) * 0.2
+      time.sleep((11 - remaining_capacity) * 0.2)  # Simulate the moving time
+      ```
    - matplotlib is then used to visualize the movement and the map using `visualize_with_animation()` function.
    - `current_position = package_location` updates the current posiition of the truck to the package location for so that the next path can be determined.
    - `route[package_location[0]][package_location[1]] = '.'` Once the package is pickup, the map will be updated so that the package is no longer available and replaced by open space.
@@ -129,6 +134,7 @@ This approach efficiently handles multiple deliveries with varying priorities, p
 
 ## QnA
 1. **What is A\* Algorithm?**
+
    The **A\*** (A-Star) algorithm is a popular and efficient graph traversal and pathfinding algorithm. It is commonly used in situations requiring finding the shortest path from a starting node to a target node in a weighted graph. A\* is widely used in robotics, game development, and navigation systems because of its ability to find the optimal path while considering both the cost of the path traveled and the estimated cost to the destination.
 
    **How A\* Works**
@@ -184,7 +190,6 @@ This approach efficiently handles multiple deliveries with varying priorities, p
    3. Flexible with different heuristic functions, adaptable to many types of problems.
 
    **Disdvantages:**
-   ### Disadvantages of the A\* Algorithm:
    1. High Memory Usage: Maintains large sets of nodes (open and closed) which can consume significant memory for large search spaces.
    2. Performance Limitations: Inefficient in massive graphs if the heuristic is weak, leading to unnecessary node exploration.
    3. Dependence on the Heuristic: 
